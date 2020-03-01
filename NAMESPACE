@@ -2,3 +2,6 @@
 
 export(NLDgem)
 export(NLDprov)
+import(ggplot2)
+import(sf)
+import(tidyverse)
