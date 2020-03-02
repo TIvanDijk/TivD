@@ -15,7 +15,7 @@
 #' @param theme_add Change the theme of the plot by adding a theme() element.
 #' @examples
 #' NLDprov(stat = NULL, varname = 'random')
-#' @import sf ggplot2 tidyverse
+#' @import sf ggplot2 dplyr
 #' @export
 NLDprov <- function(stat = NULL, varname = 'value' ,getPROV = FALSE,
                     title = 'Kaart van Nederland', subtitle = NULL,

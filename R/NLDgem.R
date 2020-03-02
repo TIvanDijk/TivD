@@ -15,7 +15,7 @@
 #' @param theme_add Change the theme of the plot by adding a theme() element.
 #' @examples
 #' NLDgem(stat = NULL, varname = 'random')
-#' @import sf ggplot2 tidyverse
+#' @import sf ggplot2 dplyr
 #' @export
 NLDgem <- function(stat = NULL, varname = 'value', getGEM = FALSE,
                    title = 'Kaart van Nederland', subtitle = NULL,
@@ -31,7 +31,7 @@ NLDgem <- function(stat = NULL, varname = 'value', getGEM = FALSE,
   # random data als er geen dataset is
   if (is.null(stat)){
     data <- gemeentegrenzen %>%
-      tidyverse::mutate(value = runif(nrow(gemeentegrenzen), min = 0, max = 1000))
+      dplyr::mutate(value = runif(nrow(gemeentegrenzen), min = 0, max = 1000))
     if (getGEM){
       return(gemeentegrenzen$statnaam)
     }
