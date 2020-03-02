@@ -2,6 +2,8 @@
 
 export(NLDgem)
 export(NLDprov)
+export(setwd_here)
 import(ggplot2)
+import(rstudioapi)
 import(sf)
 import(tidyverse)

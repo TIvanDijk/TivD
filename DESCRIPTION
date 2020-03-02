@@ -8,6 +8,6 @@ Description: Contains several usefull functions to quickly produce nice plots
 License: 
 Encoding: UTF-8
 LazyData: FALSE
-Imports: sf, ggplot2, tidyverse
+Imports: sf, ggplot2, tidyverse, rstudioapi
 Suggests:
 RoxygenNote: 7.0.2
