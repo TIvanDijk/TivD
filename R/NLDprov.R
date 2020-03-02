@@ -29,7 +29,7 @@ NLDprov <- function(stat = NULL, varname = 'value' ,getPROV = FALSE,
   }
   if (is.null(stat) ){
     data <- provgrenzen %>%
-      mutate(value = runif(nrow(provgrenzen), min = 1, max = 10))
+      tidyverse::mutate(value = runif(nrow(provgrenzen), min = 1, max = 10))
     if (getPROV){
       return(provgrenzen$statnaam)
     }

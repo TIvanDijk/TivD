@@ -31,7 +31,7 @@ NLDgem <- function(stat = NULL, varname = 'value', getGEM = FALSE,
   # random data als er geen dataset is
   if (is.null(stat)){
     data <- gemeentegrenzen %>%
-      mutate(value = runif(nrow(gemeentegrenzen), min = 0, max = 1000))
+      tidyverse::mutate(value = runif(nrow(gemeentegrenzen), min = 0, max = 1000))
     if (getGEM){
       return(gemeentegrenzen$statnaam)
     }
