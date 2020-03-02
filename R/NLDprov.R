@@ -21,29 +21,33 @@ NLDprov <- function(stat = NULL, varname = 'value' ,getPROV = FALSE,
                     title = 'Kaart van Nederland', subtitle = NULL,
                     copyright = NULL, mincol = 'turquoise1' , maxcol = 'steelblue4',
                     legendposition = c(0.05,0.75), theme_add = theme()){
+  #check arguments
+  if (!is.null(stat)){
+    if  (nrow(stat) != 12) stop("Dataset needs to be of length 12")
+    if (ncol(stat) != 2) stop("Dataset needs to have two columns. One with names of provinces, one with associated values.")
+  }
+
+  # collect data on provinces
   provgrenzen <- st_read("https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_provincie_2020_gegeneraliseerd&outputFormat=json",
                          quiet = TRUE)
   provgrenzen$statnaam = as.character(provgrenzen$statnaam)
-  if (!is.null(copyright)){
-    copyright <- paste("\uA9", as.character(copyright))
-  }
-  if (is.null(stat) ){
+  # prepare dataset
+  if (getPROV){return(provgrenzen$statnaam)}
+  else if (is.null(stat) ){
     data <- provgrenzen %>%
       dplyr::mutate(value = runif(nrow(provgrenzen), min = 1, max = 10))
-    if (getPROV){
-      return(provgrenzen$statnaam)
-    }
   }
 
   else{
-    if (getPROV){
-      print('WARNING: dataset available, getPROV ignored')
-    }
-
     names(stat) = c("name", "value")
     data <- provgrenzen %>%
       left_join(stat, by=c(statnaam = "name"))
+    if (sum(is.na(data$value)) != 0){
+      warning(paste('Missing values for',sum(is.na(data$value)), 'provinces'))
+      }
   }
+  # plot map
+  if (!is.null(copyright)){copyright <- paste("\uA9", as.character(copyright))}
 
   data %>%
     ggplot() +

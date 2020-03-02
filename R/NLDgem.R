@@ -21,34 +21,36 @@ NLDgem <- function(stat = NULL, varname = 'value', getGEM = FALSE,
                    title = 'Kaart van Nederland', subtitle = NULL,
                    copyright = NULL, mincol = 'turquoise1' , maxcol = 'steelblue4',
                    legendposition = c(0.05,0.75), theme_add = theme()){
-  # data over gemeente grenzen opgehaald
+  #check arguments
+  if (!is.null(stat)){
+    if  (nrow(stat) != 355) stop("Dataset needs to be of length 355")
+    if (ncol(stat) != 2) stop("Dataset needs to have two columns. One with names of municipalities, one with associated values.")
+  }
+
+   # data over gemeente grenzen opgehaald
   gemeentegrenzen <- st_read("https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_gemeente_2020_gegeneraliseerd&outputFormat=json",
                              quiet = TRUE)
   gemeentegrenzen$statnaam <- as.character(gemeentegrenzen$statnaam)
-  if (!is.null(copyright)){
-    copyright <- paste("\uA9", as.character(copyright))
-  }
   # random data als er geen dataset is
-  if (is.null(stat)){
+  if (getGEM){return(gemeentegrenzen$statnaam)}
+  else if (is.null(stat)){
     data <- gemeentegrenzen %>%
       dplyr::mutate(value = runif(nrow(gemeentegrenzen), min = 0, max = 1000))
-    if (getGEM){
-      return(gemeentegrenzen$statnaam)
-    }
   }
 
   # data in goede vorm
   else{
-    if (getGEM){
-      print('WARNING: dataset available, getGEM ignored')
-    }
-
     names(stat) = c("name", "value")
     data <- gemeentegrenzen %>%
       left_join(stat, by=c(statnaam = "name"))
+    if (sum(is.na(data$value)) != 0){
+      warning(paste('Missing values for',sum(is.na(data$value)), 'municipalities'))
+    }
   }
 
   # plot kaart
+  if (!is.null(copyright)){copyright <- paste("\uA9", as.character(copyright))}
+
   data %>%
     ggplot() +
     geom_sf(aes(fill = value)) +
