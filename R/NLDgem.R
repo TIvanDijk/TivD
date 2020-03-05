@@ -55,7 +55,7 @@ NLDgem <- function(stat = NULL, varname = 'value', getGEM = FALSE,
   data %>%
     ggplot() +
     geom_sf(aes(fill = value)) +
-    scale_fill_gradient(low = mincol, high = maxcol, legend.breaks = breaks) +
+    scale_fill_gradient(low = mincol, high = maxcol, breaks = legend.breaks) +
     labs(title = title, subtitle = subtitle, fill = varname, caption = copyright) +
     theme_void() +
     theme(legend.position = legendposition) +
