@@ -14,7 +14,8 @@ NLDprov(
   mincol = "turquoise1",
   maxcol = "steelblue4",
   legendposition = c(0.05, 0.75),
-  theme_add = theme()
+  theme_add = theme(),
+  legend.breaks = waiver()
 )
 }
 \arguments{

@@ -1,7 +1,7 @@
 Package: TivD
 Type: Package
 Title: Tools for ggplot 
-Version: 0.1.1
+Version: 0.1.2
 Author: Thom-Ivar van Dijk
 Maintainer: Thom-Ivar van Dijk <thomivar@gmail.com>
 Description: Contains several usefull functions to quickly produce nice plots
