@@ -15,6 +15,7 @@ NLDgem(
   maxcol = "steelblue4",
   legendposition = c(0.05, 0.75),
   theme_add = theme(),
+  na.color = "grey",
   legend.breaks = waiver()
 )
 }

@@ -20,7 +20,7 @@
 NLDgem <- function(stat = NULL, varname = 'value', getGEM = FALSE,
                    title = 'Kaart van Nederland', subtitle = NULL,
                    copyright = NULL, mincol = 'turquoise1' , maxcol = 'steelblue4',
-                   legendposition = c(0.05,0.75), theme_add = theme(),
+                   legendposition = c(0.05,0.75), theme_add = theme(), na.color = 'grey',
                    legend.breaks = waiver()){
   #check arguments
   if (!is.null(stat)){
@@ -55,7 +55,8 @@ NLDgem <- function(stat = NULL, varname = 'value', getGEM = FALSE,
   data %>%
     ggplot() +
     geom_sf(aes(fill = value)) +
-    scale_fill_gradient(low = mincol, high = maxcol, breaks = legend.breaks) +
+    scale_fill_gradient(low = mincol, high = maxcol, breaks = legend.breaks,
+                        na.value = na.color) +
     labs(title = title, subtitle = subtitle, fill = varname, caption = copyright) +
     theme_void() +
     theme(legend.position = legendposition) +
