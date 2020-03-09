@@ -4,7 +4,7 @@
 \name{GPdata}
 \alias{GPdata}
 \title{GPdata}
-\format{A data frame with 1559 rows and 5 variables:
+\format{A data frame with 355 rows and 2 variables:
 \describe{
   \item{\code{gem}}{Dutch municipality}
   \item{\code{prov}}{Corresponding province}
