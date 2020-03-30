@@ -28,22 +28,18 @@ NLDgem <- function(stat = NULL, varname = 'value', getGEM = FALSE,
     if (ncol(stat) != 2) stop("Dataset needs to have two columns. One with names of municipalities, one with associated values.")
   }
 
-   # data over gemeente grenzen opgehaald
-  gemeentegrenzen <- st_read("https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_gemeente_2020_gegeneraliseerd&outputFormat=json",
-                             quiet = TRUE)
-  gemeentegrenzen$statnaam <- as.character(gemeentegrenzen$statnaam)
   # random data als er geen dataset is
-  if (getGEM){return(gemeentegrenzen$statnaam)}
+  if (getGEM){return(GPdata$gem)}
   else if (is.null(stat)){
-    data <- gemeentegrenzen %>%
-      dplyr::mutate(value = runif(nrow(gemeentegrenzen), min = 0, max = 1000))
+    data <- GPdata %>%
+      dplyr::mutate(value = runif(nrow(GPdata), min = 0, max = 1000))
   }
 
   # data in goede vorm
   else{
     names(stat) = c("name", "value")
-    data <- gemeentegrenzen %>%
-      left_join(stat, by=c(statnaam = "name"))
+    data <- GPdata %>%
+      left_join(stat, by=c(gem = "name"))
     if (sum(is.na(data$value)) != 0){
       warning(paste('Missing values for',sum(is.na(data$value)), 'municipalities'))
     }
@@ -54,7 +50,7 @@ NLDgem <- function(stat = NULL, varname = 'value', getGEM = FALSE,
 
   data %>%
     ggplot() +
-    geom_sf(aes(fill = value)) +
+    geom_sf(aes(geometry = gem.geometry, fill = value)) +
     scale_fill_gradient(low = mincol, high = maxcol, breaks = legend.breaks,
                         na.value = na.color) +
     labs(title = title, subtitle = subtitle, fill = varname, caption = copyright) +
