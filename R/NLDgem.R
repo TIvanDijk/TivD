@@ -18,10 +18,10 @@
 #' @import sf ggplot2 dplyr
 #' @export
 NLDgem <- function(stat = NULL, varname = 'value', getGEM = FALSE,
-                   title = 'Kaart van Nederland', subtitle = NULL,
+                   title = waiver(), subtitle = NULL,
                    copyright = NULL, mincol = 'turquoise1' , maxcol = 'steelblue4',
                    legendposition = c(0.05,0.75), theme_add = theme(), na.color = 'grey',
-                   legend.breaks = waiver()){
+                   legend.breaks = waiver(), prov.seperate = NULL){
   #check arguments
   if (!is.null(stat)){
     if  (nrow(stat) != 355) stop("Dataset needs to be of length 355")
@@ -48,13 +48,27 @@ NLDgem <- function(stat = NULL, varname = 'value', getGEM = FALSE,
   # plot kaart
   if (!is.null(copyright)){copyright <- paste("\uA9", as.character(copyright))}
 
-  data %>%
-    ggplot() +
-    geom_sf(aes(geometry = gem.geometry, fill = value)) +
-    scale_fill_gradient(low = mincol, high = maxcol, breaks = legend.breaks,
-                        na.value = na.color) +
-    labs(title = title, subtitle = subtitle, fill = varname, caption = copyright) +
-    theme_void() +
-    theme(legend.position = legendposition) +
-    theme_add
+  if (!is.null(prov.seperate)){
+    data %>%
+      filter( prov %in% prov.seperate) %>%
+      ggplot() +
+      geom_sf( aes(geometry = gem.geometry, fill = value)) +
+      scale_fill_gradient(low = mincol, high = maxcol, breaks = legend.breaks,
+                          na.value = na.color) +
+      labs(title = title, subtitle = subtitle, fill = varname, caption = copyright) +
+      theme_void() +
+      theme(legend.position = legendposition) +
+      theme_add
+  }
+  else{
+    data %>%
+      ggplot() +
+      geom_sf(aes(geometry = gem.geometry, fill = value)) +
+      scale_fill_gradient(low = mincol, high = maxcol, breaks = legend.breaks,
+                          na.value = na.color) +
+      labs(title = title, subtitle = subtitle, fill = varname, caption = copyright) +
+      theme_void() +
+      theme(legend.position = legendposition) +
+      theme_add
+  }
 }
