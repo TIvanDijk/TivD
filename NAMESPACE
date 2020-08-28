@@ -3,6 +3,7 @@
 export(NLDgem)
 export(NLDprov)
 export(setwd_here)
+export(theme_notepad)
 import(dplyr)
 import(ggplot2)
 import(rstudioapi)

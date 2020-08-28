@@ -8,7 +8,7 @@ NLDgem(
   stat = NULL,
   varname = "value",
   getGEM = FALSE,
-  title = "Kaart van Nederland",
+  title = waiver(),
   subtitle = NULL,
   copyright = NULL,
   mincol = "turquoise1",
@@ -16,7 +16,8 @@ NLDgem(
   legendposition = c(0.05, 0.75),
   theme_add = theme(),
   na.color = "grey",
-  legend.breaks = waiver()
+  legend.breaks = waiver(),
+  prov.seperate = NULL
 )
 }
 \arguments{
