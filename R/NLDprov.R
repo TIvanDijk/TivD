@@ -29,8 +29,8 @@ NLDprov <- function(stat = NULL, varname = 'value' ,getPROV = FALSE,
   }
 
   # collect data on provinces
-  provgrenzen <- st_read("https://geodata.nationaalgeoregister.nl/cbsgebiedsindelingen/wfs?request=GetFeature&service=WFS&version=2.0.0&typeName=cbs_provincie_2020_gegeneraliseerd&outputFormat=json",
-                         quiet = TRUE)
+  provgrenzen <- unique(GPdata[, c(2,5)])
+  names(provgrenzen) <- c('statnaam', 'geometry')
   provgrenzen$statnaam = as.character(provgrenzen$statnaam)
   # prepare dataset
   if (getPROV){return(provgrenzen$statnaam)}
@@ -52,7 +52,7 @@ NLDprov <- function(stat = NULL, varname = 'value' ,getPROV = FALSE,
 
   data %>%
     ggplot() +
-    geom_sf(aes(fill = value)) +
+    geom_sf(aes(geometry = geometry, fill = value)) +
     scale_fill_gradient(low = mincol, high = maxcol, breaks = legend.breaks,
                         na.value = na.color) +
     labs(title = title, subtitle = subtitle, fill = varname, caption = copyright ) +
