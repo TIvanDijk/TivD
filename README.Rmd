@@ -15,15 +15,47 @@ You can directly install this package from Github
 ```{r, eval = FALSE}
 devtools::install_github("TIvanDijk/TivD")
 ```
+To replicate the output of this markdown file, you'll need at least the following packages
+```{r, echo = FALSE}
+library(dplyr)
+library(TivD)
+library(ggplot2)
+```
 
 # Maps
+For illustration purposes, we create a random dataset containing the municipality, associated province and some random count value.  
 
-- NLDgem(): map of the Netherlands with borders of municipalities.
-- NLDprov(): map of the Netherlands with borders of provinces. 
+```{r}
+library(TivD)
+
+df = cbind(GPdata[, c('gem', 'prov')], count = rpois(352, 100))
+head(df)
+```
+
+
+To plot the counts per Dutch municipality, you can use the `NLDgem` function. 
+```{r}
+NLDgem(df[, c('gem', 'count')], title = 'Random Poisson Values', varname = 'count')
+```
+
+To plot the counts per Dutch province, you can use the `NLDprov` function. I first summarise the counts across the province to get the dataset in the appropriate format. 
+```{r}
+df.prov <- dplyr::summarise( group_by(df, prov), count = sum(count))
+NLDprov(df.prov, title = 'Sum of Poisson', varname = 'count')
+```
 
 # Themes
+To illustrate the themes, consider the following simple plot
+```{r}
+p <- ggplot(data.frame(x = -5:5), aes( x = x)) +
+  stat_function( fun = function(x) sin(x), size = 1.1, color = 'red') +
+  stat_function( fun = function(x) cos(x), size = 1.1, color = 'blue')
+```
 
-- theme_notepad()
+### Notepad (`theme_notepad`)
+```{r}
+p + theme_notepad()
+```
 
 # Other
 

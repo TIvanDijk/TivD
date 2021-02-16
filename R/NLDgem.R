@@ -24,7 +24,7 @@ NLDgem <- function(stat = NULL, varname = 'value', getGEM = FALSE,
                    legend.breaks = waiver(), prov.seperate = NULL){
   #check arguments
   if (!is.null(stat)){
-    if  (nrow(stat) != 352) stop("Dataset needs to be of length 355")
+    if  (nrow(stat) != 352) stop("Dataset needs to be of length 352")
     if (ncol(stat) != 2) stop("Dataset needs to have two columns. One with names of municipalities, one with associated values.")
   }
 
