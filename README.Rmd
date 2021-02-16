@@ -12,7 +12,7 @@ knitr::opts_chunk$set(collapse=TRUE, comment="##", fig.retina=2, fig.path = "REA
 
 # Installation
 You can directly install this package from Github 
-```r
+```{r, eval = FALSE}
 devtools::install_github("TIvanDijk/TivD")
 ```
 
