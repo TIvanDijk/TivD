@@ -13,19 +13,13 @@ devtools::install_github("TIvanDijk/TivD")
 ```
 
 To replicate the output of this markdown file, you’ll need at least the
-following
-    packages
+following packages
 
-    ## Warning: replacing previous import 'vctrs::data_frame' by 'tibble::data_frame'
-    ## when loading 'dplyr'
-    ## 
-    ## Attaching package: 'dplyr'
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
+``` r
+library(dplyr)
+library(TivD)
+library(ggplot2)
+```
 
 # Maps
 
@@ -38,12 +32,12 @@ library(TivD)
 df = cbind(GPdata[, c('gem', 'prov')], count = rpois(352, 100))
 head(df)
 ##           gem      prov count
-## 1   Eemsdelta Groningen   107
-## 2   Groningen Groningen    85
-## 3      Almere Flevoland   103
-## 4 Stadskanaal Groningen   118
-## 5     Veendam Groningen    84
-## 6    Zeewolde Flevoland   124
+## 1   Eemsdelta Groningen   104
+## 2   Groningen Groningen    86
+## 3      Almere Flevoland   104
+## 4 Stadskanaal Groningen   116
+## 5     Veendam Groningen   102
+## 6    Zeewolde Flevoland   105
 ```
 
 To plot the counts per Dutch municipality, you can use the `NLDgem`

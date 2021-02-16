@@ -16,7 +16,7 @@ You can directly install this package from Github
 devtools::install_github("TIvanDijk/TivD")
 ```
 To replicate the output of this markdown file, you'll need at least the following packages
-```{r, echo = FALSE}
+```{r message = FALSE, warning = FALSE}
 library(dplyr)
 library(TivD)
 library(ggplot2)
