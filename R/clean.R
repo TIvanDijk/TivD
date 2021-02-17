@@ -5,7 +5,7 @@
 #' @examples
 #' clean()
 #' @export
-clean <- function(){
+clean <- function(envir = .GlobalEnv){
   broom.mid = paste0('\t\t\t\t\t',
                      c(rep('  ||\n',8), ' /||\\\n', '/||||\\\n', '======\n', rep('||||||\n', 3)))
   spaces = sapply( c(40, 38:26), function(x) paste0(rep(' ', x), collapse = ''))
@@ -17,7 +17,7 @@ clean <- function(){
                    paste0(spaces[10], '|\\\\\\\\-\n'), paste0(spaces[11], '======\n'),
                    paste0(spaces[12:14], rep('\\\\\\\\\\\\\n', 3)))
 
-  bin = ls(envir = .GlobalEnv)
+  bin = ls(envir = envir)
   bin = bin[-which(bin == 'clean')]
 
   left = T
