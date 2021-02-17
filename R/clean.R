@@ -19,6 +19,7 @@ clean <- function(envir = .GlobalEnv){
 
   bin = ls(envir = envir)
   bin = bin[-which(bin == 'clean')]
+  print(bin)
 
   left = T
   while (length(bin) > 0){
@@ -33,7 +34,7 @@ clean <- function(envir = .GlobalEnv){
     else {cat(broom.right, '\n', rep('\t', 3), next.item); left = T}
     Sys.sleep(0.35)
 
-    rm(list = item, envir = .GlobalEnv)
+    rm(list = item, envir = envir)
     bin = bin[-1]
   }
   graphics.off()

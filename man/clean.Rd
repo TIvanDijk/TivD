@@ -4,7 +4,7 @@
 \alias{clean}
 \title{clean}
 \usage{
-clean()
+clean(envir = .GlobalEnv)
 }
 \description{
 Cleans the global environment, console and graphical device with an animation.
