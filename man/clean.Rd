@@ -4,7 +4,7 @@
 \alias{clean}
 \title{clean}
 \usage{
-clean()
+clean(envir = parent.frame(), list.function = ls)
 }
 \description{
 Cleans the global environment, console and graphical device with an animation.
