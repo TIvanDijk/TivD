@@ -32,12 +32,12 @@ library(TivD)
 df = cbind(GPdata[, c('gem', 'prov')], count = rpois(352, 100))
 head(df)
 ##           gem      prov count
-## 1   Eemsdelta Groningen   104
-## 2   Groningen Groningen    86
-## 3      Almere Flevoland   104
-## 4 Stadskanaal Groningen   116
-## 5     Veendam Groningen   102
-## 6    Zeewolde Flevoland   105
+## 1   Eemsdelta Groningen   108
+## 2   Groningen Groningen    97
+## 3      Almere Flevoland   111
+## 4 Stadskanaal Groningen    95
+## 5     Veendam Groningen   107
+## 6    Zeewolde Flevoland    96
 ```
 
 To plot the counts per Dutch municipality, you can use the `NLDgem`
@@ -55,7 +55,6 @@ dataset in the appropriate format.
 
 ``` r
 df.prov <- dplyr::summarise( group_by(df, prov), count = sum(count))
-## `summarise()` ungrouping output (override with `.groups` argument)
 NLDprov(df.prov, title = 'Sum of Poisson', varname = 'count')
 ```
 
@@ -67,8 +66,10 @@ To illustrate the themes, consider the following simple plot
 
 ``` r
 p <- ggplot(data.frame(x = -5:5), aes( x = x)) +
-  stat_function( fun = function(x) sin(x), size = 1.1, color = 'red') +
-  stat_function( fun = function(x) cos(x), size = 1.1, color = 'blue')
+  stat_function(aes(color = 'line 1'), fun = function(x) sin(x), size = 1.1) +
+  stat_function(aes(color = 'line 2'), fun = function(x) cos(x), size = 1.1) +
+  labs(title = 'Two Interesting Lines', subtitle = 'notice the alternating pattern',
+       caption = 'source: high school mathematics')
 ```
 
 ### Notepad (`theme_notepad`)
@@ -79,7 +80,16 @@ p + theme_notepad()
 
 <img src="README_figs/README-unnamed-chunk-8-1.png" width="672" />
 
+### Grey (`theme_newgrey`)
+
+``` r
+p + theme_newgrey()
+```
+
+<img src="README_figs/README-unnamed-chunk-9-1.png" width="672" />
+
 # Other
 
   - setwd\_here()
   - GPdata
+  - clean()

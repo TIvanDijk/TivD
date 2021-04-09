@@ -48,8 +48,10 @@ NLDprov(df.prov, title = 'Sum of Poisson', varname = 'count')
 To illustrate the themes, consider the following simple plot
 ```{r}
 p <- ggplot(data.frame(x = -5:5), aes( x = x)) +
-  stat_function( fun = function(x) sin(x), size = 1.1, color = 'red') +
-  stat_function( fun = function(x) cos(x), size = 1.1, color = 'blue')
+  stat_function(aes(color = 'line 1'), fun = function(x) sin(x), size = 1.1) +
+  stat_function(aes(color = 'line 2'), fun = function(x) cos(x), size = 1.1) +
+  labs(title = 'Two Interesting Lines', subtitle = 'notice the alternating pattern',
+       caption = 'source: high school mathematics')
 ```
 
 ### Notepad (`theme_notepad`)
@@ -57,7 +59,13 @@ p <- ggplot(data.frame(x = -5:5), aes( x = x)) +
 p + theme_notepad()
 ```
 
+### Grey (`theme_newgrey`)
+```{r}
+p + theme_newgrey()
+```
+
 # Other
 
 - setwd_here()
 - GPdata
+- clean()
